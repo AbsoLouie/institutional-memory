@@ -18,12 +18,18 @@ That's the demo: same question, two sessions, visibly sharper answer.
 You need a workspace API key on the Console (your hackathon team workspace).
 
 ```bash
-cd 02-institutional-memory-agent
-pip install -r requirements.txt
-export ANTHROPIC_API_KEY="sk-ant-..."
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+echo 'ANTHROPIC_API_KEY=sk-ant-...' > .env   # your own key; .env is gitignored
 ```
 
-That's it. No infrastructure to spin up. Managed Agents handles the runtime.
+The scripts don't read `.env` themselves, so load it into your shell before running them:
+
+```bash
+set -a; . ./.env; set +a
+.venv/bin/python create_agent.py
+```
+
+That's it. No infrastructure to spin up. Managed Agents handles the runtime. Each person gets their own agent and memory store; the IDs are saved locally (`.agent_id`, `.environment_id`, `.memory_store_id`) and are not committed.
 
 ## Pick a scenario card
 
@@ -78,7 +84,7 @@ Read both out loud. Let the room see the agent's answer sharpen. Then open the m
 ## What's in this folder
 
 ```
-02-institutional-memory-agent/
+institutional-memory/
 ├── README.md                      (you are here)
 ├── scenario-cards.md
 ├── stretch-goals.md
@@ -89,5 +95,7 @@ Read both out loud. Let the room see the agent's answer sharpen. Then open the m
 ├── stretch_memory_curator.py      (stretch: curator sub-agent)
 └── synthetic-data/
     ├── round1/                    (initial context — onboarding handbook, policies, customer cases)
-    └── round2/                    (updates and contradictions)
+    ├── round2/                    (updates and contradictions)
+    ├── sales-calls/               (Scope Creepers discovery calls with 5 prospects)
+    └── one-on-ones/               (Scope Creepers manager/engineer 1:1s)
 ```
