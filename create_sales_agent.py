@@ -8,8 +8,8 @@ The memory store mounts at /mnt/memory/ inside the session container. The agent
 keeps one file per deal under /mnt/memory/deals/ holding only that deal's BANT
 (Budget, Authority, Need, Timeline) data.
 
-IDs go to separate files (.sales_agent_id, .sales_environment_id,
-.sales_memory_store_id) so this does not overwrite the Institutional Memory
+IDs go to separate files (.bant_agent_id, .bant_environment_id,
+.bant_memory_store_id) so this does not overwrite the Institutional Memory
 Agent created by create_agent.py.
 
 Usage:
@@ -126,7 +126,7 @@ def main() -> None:
         tools=[{"type": "agent_toolset_20260401"}],
         metadata={"hackathon": "partner-basecamp-2026", "track": "memory-agent-sales-bant"},
     )
-    Path(".sales_agent_id").write_text(agent.id)
+    Path(".bant_agent_id").write_text(agent.id)
     print(f"Agent created:        {agent.id}")
 
     # 2. Environment (the cloud container)
@@ -137,7 +137,7 @@ def main() -> None:
             "networking": {"type": "unrestricted"},
         },
     )
-    Path(".sales_environment_id").write_text(environment.id)
+    Path(".bant_environment_id").write_text(environment.id)
     print(f"Environment created:  {environment.id}")
 
     # 3. Memory store — the CRM
@@ -150,7 +150,7 @@ def main() -> None:
             "Newer calls supersede older facts; deals never share information."
         ),
     )
-    Path(".sales_memory_store_id").write_text(memory_store.id)
+    Path(".bant_memory_store_id").write_text(memory_store.id)
     print(f"Memory store created: {memory_store.id}")
 
     print("\nSetup complete.")

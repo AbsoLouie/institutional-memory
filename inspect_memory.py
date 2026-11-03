@@ -23,7 +23,7 @@ def main() -> None:
 
     # --sales inspects the Sales CRM store made by create_sales_agent.py
     sales = "--sales" in sys.argv
-    store_id_path = Path(".sales_memory_store_id" if sales else ".memory_store_id")
+    store_id_path = Path(".bant_memory_store_id" if sales else ".memory_store_id")
     if not store_id_path.exists():
         raise SystemExit(
             f"Missing {store_id_path}. Run "
