@@ -9,3 +9,6 @@ outputs/
 __pycache__/
 *.pyc
 sales-call-management/data/crm.json
+.bant_agent_id
+.bant_environment_id
+.bant_memory_store_id
