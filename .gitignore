@@ -4,3 +4,6 @@
 .environment_id
 .memory_store_id
 outputs/
+.sales_agent_id
+.sales_memory_store_id
+__pycache__/

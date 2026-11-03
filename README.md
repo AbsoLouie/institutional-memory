@@ -31,6 +31,17 @@ set -a; . ./.env; set +a
 
 That's it. No infrastructure to spin up. Managed Agents handles the runtime. Each person gets their own agent and memory store; the IDs are saved locally (`.agent_id`, `.environment_id`, `.memory_store_id`) and are not committed.
 
+## Sales Memory app (Scope Creepers)
+
+A small web UI (`app.py`) over the same agent + memory-store pattern. It processes the discovery calls in `synthetic-data/sales-calls/` (only files tagged `Category: sales-discovery`) and keeps one memory file per prospect, including a BANT table that fills in call by call.
+
+```bash
+.venv/bin/python create_agent.py          # once, if you haven't — the app reuses its environment
+.venv/bin/uvicorn app:app --reload        # open http://127.0.0.1:8000 (reads .env itself)
+```
+
+On first load it creates its own Sales Memory agent and memory store (`.sales_agent_id`, `.sales_memory_store_id`, not committed). Delete those two files to start over with empty memory. Process each prospect's calls in order (call 1, 2, 3) to watch BANT go from Unknown to Known.
+
 ## Pick a scenario card
 
 Four cards in [`scenario-cards.md`](./scenario-cards.md). Each is a persona that benefits from memory across sessions. Pick one.
